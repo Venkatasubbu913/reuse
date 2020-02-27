@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>ajaxApI Call</title>
+    <style>
+        body div {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+
+<body class="m-3">
+    <div class="d-flex p-4 border justify-content-around bg-secondary d-flex flex-wrap">
+        <div id="registrationPage" class="border bg-success px-4 col-10 col-md-6">
+            <h3 class="text-warning p-3">Registration Form</h3>
+            <div>
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="  Enter your Name" class="float-right">
+            </div>
+            <div>
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="  Enter your email address" class="float-right">
+            </div>
+            <div>
+                <label for="password">Password</label>
+                <input type="text" id="password" placeholder="  Enter your password" class="float-right">
+            </div>
+            <div>
+                <label for="uName">User Name</label>
+                <input type="text" id="username" placeholder=" Enter your Username" class="float-right">
+            </div>
+            <div>
+                <label for="mobile">Mobile</label>
+                <input type="text" id="mobile" placeholder=" Enter your Mobile Number" class="float-right">
+            </div>
+            <div>
+                <label for="matter">Description</label>
+                <input type="text" id="matter" placeholder=" Write few words about you" class="float-right">
+            </div>
+            <button id="regSubmitBtn" class="m-2 bg-warning">submit</button>
+        </div>
+        <div id="logInPage" class="border bg-success px-4 col-10 col-md-5">
+            <h3 class="text-warning">Log In Form</h3>
+            <div>
+                <label for="loginName">User Name</label>
+                <input type="text" name="user" id="loginName" placeholder=" Enter User Name" required
+                    class="float-right">
+            </div>
+            <div>
+                <label for="loginPassword">PassWord</label>
+                <input type="text" name="password" id="loginPassword" placeholder=" PassWord" required
+                    class="float-right">
+            </div>
+            <button id="loginBtn" class="bg-warning m-2">Submit</button>
+        </div>
+    </div>
+
+    <script>
+        $("#regSubmitBtn").click(() => {
+            let info = {
+                "name": $("#name").val(),
+                "email": $("#email").val(),
+                "password": $("#password").val(),
+                "username": $("#username").val(),
+                "mobile": $("#mobile").val(),
+                "description": $("#matter").val()
+            }
+            console.log(info)
+            newRegistration(info)
+        })
+
+        newRegistration = (obj) => {
+            let person = JSON.stringify(obj)
+            var request = $.ajax({
+                method: "POST",
+                url: "http://localhost:8080/auth/register",
+                data: person,
+                contentType: "application/json"
+
+            })
+            request.done(function (data) {
+                alert('Done.!')
+                let output = JSON.parse(data)
+                console.log(data);
+            });
+            request.fail((data) => {
+                alert('user already existed.!')
+                let output = JSON.parse(data)
+                console.log(data);
+            })
+
+        }
+
+
+        $("#loginBtn").click(() => {
+            let data = {
+                username: $("#loginName").val(),
+                password: $("#loginPassword").val()
+            }
+            console.log(data)
+            checkUserData(data)
+        })
+
+        checkUserData = (obj) => {
+            let person = JSON.stringify(obj)
+            var request = $.ajax({
+                method: "POST",
+                url: "http://localhost:8080/auth/login",
+                data: person,
+                contentType: "application/json"
+
+            })
+            request.done(function (data) {
+                alert('Log in Successful.!')
+                let output = JSON.parse(data)
+                console.log(data)
+                console.log($("#loginName").val(),new Date().toLocaleDateString());
+                $("#loginName").val("")
+                $("#loginPassword").val("")
+            });
+            request.fail((data) => {
+                alert('Enter correct details..try again!')
+                let output = JSON.parse(data)
+                console.log(data);
+            })
+        }
+    </script>
+</body>
+
+</html>
