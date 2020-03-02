@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* overflow: auto; */
+            /* background-color: rgb(0, 0, 0);  */
+            background-color: rgba(90, 247, 220, 0.2);
+            white-space: pre-wrap
+        }
+
+        .modal-content {
+            background-color: #cdfc24;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            background-color: #6ef71e;
+            color: #64302e;
+            float: right;
+            margin-right: 100px;
+            font-size: 40px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: rgb(250, 145, 145);
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <button class="m-2" id="allBtn">array info-->cards</button>
+    <div id="cardsDiv" class="d-flex flex-wrap "></div>
+
+    <div id="myModal" class="modal">
+        <span class="close">&times;</span>
+        <div class="modal-content" id="modalText">
+            <p>Some text in the Modal..</p>
+        </div>
+    </div>
+    <div id="buttonsDiv" class="d-flex"></div>
+
+    <script>
+        var students =
+            [{ "id": 1, "first_name": "Rae", "last_name": "Thyng", "email": "rthyng0@nifty.com", "gender": "Female", "english": 36, "maths": 61, "science": 68 },
+            { "id": 2, "first_name": "Janifer", "last_name": "Hefferan", "email": "jhefferan1@java.com", "gender": "Female", "english": 89, "maths": 100, "science": 68 },
+            { "id": 3, "first_name": "Jeannie", "last_name": "Royall", "email": "jroyall2@dmoz.org", "gender": "Female", "english": 76, "maths": 24, "science": 74 },
+            { "id": 4, "first_name": "Deb", "last_name": "Vannuchi", "email": "dvannuchi3@theatlantic.com", "gender": "Female", "english": 34, "maths": 99, "science": 20 },
+            { "id": 5, "first_name": "Gideon", "last_name": "Dye", "email": "gdye4@aol.com", "gender": "Male", "english": 90, "maths": 96, "science": 79 },
+            { "id": 6, "first_name": "Kahlil", "last_name": "Korneichuk", "email": "kkorneichuk5@yale.edu", "gender": "Male", "english": 98, "maths": 29, "science": 81 },
+            { "id": 7, "first_name": "Orbadiah", "last_name": "Wyman", "email": "owyman6@amazon.de", "gender": "Male", "english": 29, "maths": 41, "science": 100 },
+            { "id": 8, "first_name": "Jeffrey", "last_name": "Hammonds", "email": "jhammonds7@cdbaby.com", "gender": "Male", "english": 34, "maths": 90, "science": 62 },
+            { "id": 9, "first_name": "Nil", "last_name": "Reveley", "email": "nreveley8@reverbnation.com", "gender": "Male", "english": 66, "maths": 34, "science": 61 },
+            { "id": 10, "first_name": "Gaven", "last_name": "Josephoff", "email": "gjosephoff9@yelp.com", "gender": "Male", "english": 44, "maths": 62, "science": 30 },
+            { "id": 11, "first_name": "Berna", "last_name": "Roset", "email": "broseta@etsy.com", "gender": "Female", "english": 89, "maths": 39, "science": 23 },
+            { "id": 12, "first_name": "Arlee", "last_name": "Earley", "email": "aearleyb@gravatar.com", "gender": "Female", "english": 78, "maths": 31, "science": 79 },
+            { "id": 13, "first_name": "Cleon", "last_name": "Hamel", "email": "chamelc@yandex.ru", "gender": "Male", "english": 43, "maths": 80, "science": 54 }]
+
+        var perPageVal = 4
+        var noOfButtons= Math.ceil(students.length/perPageVal)
+        console.log("no of buttons are "+noOfButtons)
+        for(b= 1; b<= noOfButtons; b++) {
+            let btn= `<button class="pageBtn m-2" onclick="showBtnNo(${b})">${b}</button>`
+            $("#buttonsDiv").append(btn)
+        }
+        $( ".pageBtn" ).on( "click", function() {
+            $( this ).css( "background-color", "lime" );
+        })
+        function showBtnNo(n) {
+            console.log(n+" btn pressed")
+            var arr= []
+            let start= (n-1)*perPageVal
+            let end
+            if( (start+ perPageVal) >= students.length ) end= students.length
+            else end= start+ perPageVal
+            for(k= start; k<end; k++) {
+                arr.push(students[k])
+            }
+            dataToCards(arr)
+        }
+
+        $("#allBtn").click(() => {
+            dataToCards(students)
+        })
+
+        function dataToCards(array) {
+            $("#cardsDiv").html("")
+            array.forEach(obj => {
+                let card = `<div class="card border border-danger m-2" style="width: 18rem; background: orange">
+                                <div class="card-body">
+                                    <h5 class="card-title">${obj.id} ${obj.first_name}</h5>
+                                    <h6 class="card-subtitle mb-2 text-muted">${obj.last_name}</h6>
+                                    <p class="card-text">${obj.gender} + and to know more click the button below</p>
+                                    <button onclick= showMoreDetails("${obj.id}") >More Details</button>
+                                </div>
+                            </div>`
+                $("#cardsDiv").append(card)
+            });
+        }                                                                                                                                    
+
+        var modal = document.getElementById("myModal");
+        // var btn = document.getElementById("moreDtlBtn");
+        var span = document.getElementsByClassName("close")[0];
+
+        showMoreDetails = (id) => {
+            var parent = document.getElementById("modalText")
+            parent.innerHTML = ""
+            var wholeText = ""
+            for (i = 0; i < students.length; i++) {
+                if (students[i].id == id) {
+                    for (key in students[i]) {
+                        wholeText += key + " : " + students[i][key] + "\n"
+                    }
+                    break
+                }
+            }
+            parent.append(wholeText)
+            modal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

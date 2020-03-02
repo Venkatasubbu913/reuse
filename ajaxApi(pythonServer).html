@@ -8,18 +8,36 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Arizonia|Norican&display=swap" rel="stylesheet">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Norican&display=swap" rel="stylesheet"> -->
+
     <title>ajaxApI Call</title>
     <style>
+        body{
+            background-color: black;
+        }
         body div {
             margin: 5px 0;
+        }
+        /* .header{
+            /* background-image: url("https://wallup.net/wp-content/uploads/2019/05/10/199033-nature-grass-color-sunset-landscape-ultrahd-4k-wallpaper-748x468.jpg"); */
+            /* background-color: black; */
+        /* } */
+        .headerChild{
+            background-image: url("https://amazon.clikpic.com/RobertHarvey/images/UK14-1085_Magenta_Dawn_Avebury_Wiltshire.jpg");
+            font-family: 'Arizonia';
+        }
+        .headerChild2{
+            background-image: url("https://cdn.shopify.com/s/files/1/1025/1611/products/zz-plant-cubico-white-01_971a87b0-f93e-4aec-bc0c-0438e5bf5670_400x.jpg?v=1536346918");
+            font-family: 'Norican';
         }
     </style>
 </head>
 
 <body class="m-3">
-    <div class="d-flex p-4 border justify-content-around bg-secondary d-flex flex-wrap">
-        <div id="registrationPage" class="border bg-success px-4 col-10 col-md-6">
-            <h3 class="text-warning p-3">Registration Form</h3>
+    <div class="d-flex p-4 border justify-content-around d-flex flex-wrap header">
+        <div id="registrationPage" class="border bg-success px-4 col-10 col-md-6 headerChild">
+            <h3 class="text-warning p-3" id="titl">Registration Form</h3>
             <div>
                 <label for="name">Name</label>
                 <input type="text" id="name" placeholder="  Enter your Name" class="float-right">
@@ -44,10 +62,10 @@
                 <label for="matter">Description</label>
                 <input type="text" id="matter" placeholder=" Write few words about you" class="float-right">
             </div>
-            <button id="regSubmitBtn" class="m-2 bg-warning">submit</button>
+            <button id="regSubmitBtn" class="m-2 bg-primary">submit</button>
         </div>
-        <div id="logInPage" class="border bg-success px-4 col-10 col-md-5">
-            <h3 class="text-warning">Log In Form</h3>
+        <div id="logInPage" class="border bg-success px-4 col-10 col-md-5 headerChild2">
+            <h3 id="titl1">Log In Form</h3>
             <div>
                 <label for="loginName">User Name</label>
                 <input type="text" name="user" id="loginName" placeholder=" Enter User Name" required
@@ -58,7 +76,7 @@
                 <input type="text" name="password" id="loginPassword" placeholder=" PassWord" required
                     class="float-right">
             </div>
-            <button id="loginBtn" class="bg-warning m-2">Submit</button>
+            <button id="loginBtn" class="bg-primary m-2">Submit</button>
         </div>
     </div>
 
@@ -132,6 +150,14 @@
             })
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    Official Themes
+    Take Bootstrap 4 to the next level with official premium themes—toolkits built on Bootstrap with new components and plugins, docs, and build tools.
+    
+    Bootstrap Themes
+    
 </body>
 
 </html>
